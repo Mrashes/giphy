@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<body>
+	<div id="giphy"></div>
+	<script type="text/javascript">
+		var searchTerm = "animal+care+league"
+		var limit = ""
+		var rating = ""
+	    $.ajax({
+	      url: "https://api.giphy.com/v1/gifs/search?q="+searchTerm+"&limit="+limit+"&rating"+rating"&api_key=dc6zaTOxFJmzC",
+	      method: 'GET'
+	    }).done(function(response) {
+	      console.log(response);
+	    });		
+	</script>
+</body>
+</html>
