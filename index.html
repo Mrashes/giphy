@@ -2,21 +2,74 @@
 <html>
 <head>
 	<title></title>
+	<!-- Latest compiled and minified CSS & JS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <body>
+	<div id="buttons">
+		<button id="beyonce">beyonce</button>
+		<button id="beyonce">Nickelodean</button>
+	</div>
 	<div id="giphy"></div>
 	<script type="text/javascript">
-		var apiKey = 'dc6zaTOxFJmzC';
-		var searchTerm = "animal+care+league";
-		var limit = "";
-		var rating = "";
-		var hidden = {};
-	    $.ajax({
-	      url: "https://api.giphy.com/v1/gifs/search?q="+ searchTerm +"&limit="+ limit +"&rating="+ rating +"&api_key=" + apiKey,
+		
+	var giphyArg = {
+		//search term
+		q: "beyonce",
+		// amount on return
+		limit: 25,
+		//offset (?)
+		offset: 0,
+		//country based content (see documentation)
+		lang: "",
+		//format, html or json
+		fmt:"json",
+		//sort recent or sort relevant
+		sort: "relevant"
+		// //list of parameters from documentation
+		// q - search query term or phrase
+		// limit - (optional) number of results to return, maximum 100. Default 25.
+		// offset - (optional) results offset, defaults to 0.
+		// rating - (optional) limit results to those rated (y,g, pg, pg-13 or r).
+		// lang - (optional) specify default country for regional content; format is 2-letter ISO 639-1 country code. See list of supported languages here
+		// fmt - (optional) return results in html or json format (useful for viewing responses as GIFs to debug/test)
+		// sort - (optional) the sort order of the results returned (recent | relevant)
+	}
+
+	var giphyApp = {
+
+	}
+	var apiCall = function(query) {
+		$.ajax({
+	      url: "http://api.giphy.com/v1/gifs/search?q="+query+"&api_key=dc6zaTOxFJmzC",
 	      method: 'GET'
 	    }).done(function(response) {
-	      hidden=response;
+	      console.log(response);
+	      clearGif();
+	      for (var i=0; i<response.data.length;i++){
+	      	$("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src="+response.data[i].images.fixed_height.url+">")
+	      }
 	    });
+	}
+
+	var clearGif = function() {
+		$('#giphy').html(" ")
+	}
+
+
+	$("button").on('click', function(){
+		apiCall($(this).text());
+	})
+	
+		// //this prints all gifs from searchTerm (defaults to 25) 
+	 //    $.ajax({
+	 //      url: "http://api.giphy.com/v1/gifs/search?q="+giphyArg.q+"&api_key=dc6zaTOxFJmzC",
+	 //      method: 'GET'
+	 //    }).done(function(response) {
+	 //      console.log(response);
+	 //      for (var i=0; i<response.data.length;i++){
+	 //      	$("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src="+response.data[i].images.fixed_height.url+">")
+	 //      }
+	 //    });
 
 	    // This is for the homework to make the onclick gif work
 	    // if (state === "still") {
@@ -28,6 +81,15 @@
 	    // 	$(this).attr("src", "still")	    	
 	    // }
 
+	    //no clue what this is
+	 //    function potato(arg) {
+		// 	$("#giphy").html("<img src="+arg.data[i].images.fixed_height.url+">")
+		// 	// for (i; i<arg.data.length; i++) {
+		// 	// 	setTimeout($("#giphy").html("<img src="+arg.data[i].images.fixed_height.url+">"), 1000*i)
+		// 	// }
+		// }
+
+		
 	</script>
 </body>
 </html>
