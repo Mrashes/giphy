@@ -2,20 +2,31 @@
 <html>
 <head>
 	<title></title>
-	<!-- Latest compiled and minified CSS & JS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <body>
 	<div id="giphy"></div>
 	<script type="text/javascript">
-		var searchTerm = "animal+care+league"
-		var limit = ""
-		var rating = ""
+		var apiKey = 'dc6zaTOxFJmzC';
+		var searchTerm = "animal+care+league";
+		var limit = "";
+		var rating = "";
+		var hidden = {};
 	    $.ajax({
-	      url: "https://api.giphy.com/v1/gifs/search?q="+ searchTerm +"&limit="+ limit +"&rating="+ rating +"&api_key=dc6zaTOxFJmzC",
+	      url: "https://api.giphy.com/v1/gifs/search?q="+ searchTerm +"&limit="+ limit +"&rating="+ rating +"&api_key=" + apiKey,
 	      method: 'GET'
 	    }).done(function(response) {
-	      respons;
+	      hidden=response;
 	    });
+
+	    // This is for the homework to make the onclick gif work
+	    // if (state === "still") {
+	    // 	$(this).attr("src", animate)
+	    // 	$(this).attr("src", "animate")
+	    // }
+	    // else {
+	    // 	$(this).attr("src", $(this).attr("data-still"))
+	    // 	$(this).attr("src", "still")	    	
+	    // }
 
 	</script>
 </body>
