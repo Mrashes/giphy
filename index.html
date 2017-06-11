@@ -21,7 +21,7 @@
 			}
 		},
 		buttonGen2: function() {
-			$('#buttonsBackup').append("<div class=\"btn-group\" role=\"group\"><button class='btn btn-default'>" + $('#newSearch').val() + "</button></div>")
+			$('#buttonsBackup').append("<div class=\"btn-group\" role=\"group\"><a class='btn btn-default'>" + $('#newSearch').val() + "</a></div>")
 		},
 		clearGif: function() {
 			$('#giphy').html(" ")
@@ -48,8 +48,13 @@
 	document.onready
 		giphyApp.buttonGen()
 
+	$('#buttonsBackup').on('click', function(){
+		console.log($(this).text())
+		giphyApp.apiCall($(this).text());
+	})
 
-	$("button").on('click', function(){
+	$("#button").on('click', function(){
+		// console.log($(this).text())
 		giphyApp.apiCall($(this).text());
 	})
 
