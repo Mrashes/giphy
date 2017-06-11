@@ -3,9 +3,13 @@
 <head>
 	<title></title>
 	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <body>
-	<div id="buttons"></div>
+	<div class='btn-group btn-group-justified' role="group" aria-label="..." id="buttons"></div>
+	<div class='btn-group btn-group-justified' role="group" aria-label="..." id="buttonsBackup"></div>
+	<input type="text" name="newSearch" id='newSearch'>  
+	<button class='btn btn-danger' id='newButton'>New Search Term</button>
 	<div id="giphy"></div>
 	<script type="text/javascript">
 
@@ -13,8 +17,11 @@
 		searchTerms: ['Beyonce', 'Nickelodean', 'Dog', 'Bangz', 'England', 'Wood', 'Video Games'],
 		buttonGen: function() {
 			for (var i = 0; i<this.searchTerms.length; i++){
-				$('#buttons').append("<button>" +this.searchTerms[i]+ "</button>")
+				$('#buttons').append("<div class=\"btn-group\" role=\"group\"><button class='btn btn-default'>" +this.searchTerms[i]+ "</button></div>")
 			}
+		},
+		buttonGen2: function() {
+			$('#buttonsBackup').append("<div class=\"btn-group\" role=\"group\"><button class='btn btn-default'>" + $('#newSearch').val() + "</button></div>")
 		},
 		clearGif: function() {
 			$('#giphy').html(" ")
@@ -28,8 +35,9 @@
 		      console.log(response);
 		      giphyApp.clearGif();
 		      for (var i=0; i<response.data.length;i++){
-		      	$("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' id='gif"+i+"'>");
+		      	$("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'>");
 		      }
+		      // $("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'>");
 		    });
 		},
 
@@ -47,7 +55,20 @@
 
 
   	document.body.addEventListener( 'click', function ( event ) {
-  		console.log($(this).attr('id'))
+  		$(".gif").on("click", function() {
+  			// console.log(this);
+  			var state = $(this).attr("data-state")
+  			if (state === "still"){
+		        $(this).attr("src", $(this).attr("data-animate"));
+		        $(this).attr("data-state", "animate");  			
+  			}
+  			else {
+		        $(this).attr("src", $(this).attr("data-still"));
+		        $(this).attr("data-state", "still");
+		    }
+	  	});
+  	} );
+
 		// if( event.srcElement.id == 'gif') {
 		// 	console.log($(this).attr("data-state"));
 		// 	var state = $(this).attr("data-state");
@@ -60,9 +81,6 @@
 		//         $(this).attr("data-state", "still");
 		//     }
 		// 	};
-	} );
-
-
 
 	// $(".gif").on("click", function() {
  //      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
