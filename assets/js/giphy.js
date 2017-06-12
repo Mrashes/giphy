@@ -2,11 +2,11 @@ var giphyApp = {
 	searchTerms: ['Beyonce', 'Nickelodeon', 'Dog', 'Bangz', 'England', 'Wood', 'Video Games'],
 	buttonGen: function() {
 		for (var i = 0; i<this.searchTerms.length; i++){
-			$('#buttons').append("<button class='btn' id='button'>" +this.searchTerms[i]+ "</button>")
+			$('#buttons').append("<a class='btn' id='button'>" +this.searchTerms[i]+ "</a>")
 		}
 	},
 	buttonGen2: function() {
-		$('#buttons').append("<button class='btn' id='button'>" + $('#newSearch').val() + "</button>")
+		$('#buttons').append("<a class='btn' id='button'>" + $('#newSearch').val() + "</a>")
 	},
 	clearGif: function() {
 		$('#giphy').html(" ")
@@ -14,7 +14,7 @@ var giphyApp = {
 
 	apiCall: function(query) {
 		$.ajax({
-	      url: "http://api.giphy.com/v1/gifs/search?q="+query+"&api_key=dc6zaTOxFJmzC",
+	      url: "http://api.giphy.com/v1/gifs/search?q="+query+"&limit=10&api_key=dc6zaTOxFJmzC",
 	      method: 'GET'
 	    }).done(function(response) {
 	      // console.log(response);
