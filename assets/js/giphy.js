@@ -1,12 +1,13 @@
 var giphyApp = {
 	searchTerms: ['Beyonce', 'Nickelodeon', 'Dog', 'Bangz', 'England', 'Wood', 'Video Games'],
 	buttonGen: function() {
+		$('#buttons').html(' ');
 		for (var i = 0; i<this.searchTerms.length; i++){
 			$('#buttons').append("<a class='btn' id='button'>" +this.searchTerms[i]+ "</a>")
 		}
 	},
-	buttonGen2: function() {
-		$('#buttons').append("<a class='btn' id='button'>" + $('#newSearch').val() + "</a>")
+	buttonPush: function() {
+		giphyApp.searchTerms.push($('#newSearch').val())
 	},
 	clearGif: function() {
 		$('#giphy').html(" ")
@@ -28,39 +29,21 @@ var giphyApp = {
 	key: "value"
 }
 
-//event calls
+//event calls/listener
 document.onready
 	giphyApp.buttonGen()
 
 $('#newButton').on('click', function(){
-	giphyApp.buttonGen2();
+	giphyApp.buttonPush();
+	giphyApp.buttonGen()
 })
 
 document.getElementById('newSearch').onkeydown = function(event) {
     if (event.keyCode == 13) {
-        giphyApp.buttonGen2();
+    	giphyApp.buttonPush();
+        giphyApp.buttonGen()
     }
 }
-
-document.body.addEventListener( 'click', function ( event ) {
-// 	$(".gif").on("click", function() {
-// 		// console.log(this);
-// 		var state = $(this).attr("data-state")
-// 		if (state === "still"){
-//         $(this).attr("src", $(this).attr("data-animate"));
-//         $(this).attr("data-state", "animate");  			
-// 		}
-// 		else {
-//         $(this).attr("src", $(this).attr("data-still"));
-//         $(this).attr("data-state", "still");
-//     }s
-// 	});
-
-	$("button").on('click', function(){
-		// console.log($(this))
-		giphyApp.apiCall($(this).text());
-	})
-	} );
 
 $(document).on("click", "#gif", function ( event ) {
 	console.log($(this));
