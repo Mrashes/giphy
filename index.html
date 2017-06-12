@@ -6,8 +6,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <body>
-	<div class='btn-group btn-group-justified' role="group" aria-label="..." id="buttons"></div>
-	<div class='btn-group btn-group-justified' role="group" aria-label="..." id="buttonsBackup"></div>
+	<div class='btn-group' id="buttons"></div>
 	<input type="text" name="newSearch" id='newSearch'>  
 	<a class='btn btn-danger' id='newButton'>New Search Term</a>
 	<div id="giphy"></div>
@@ -17,11 +16,11 @@
 		searchTerms: ['Beyonce', 'Nickelodean', 'Dog', 'Bangz', 'England', 'Wood', 'Video Games'],
 		buttonGen: function() {
 			for (var i = 0; i<this.searchTerms.length; i++){
-				$('#buttons').append("<div class=\"btn-group\" role=\"group\"><button class='btn btn-default' id='button'>" +this.searchTerms[i]+ "</button></div>")
+				$('#buttons').append("<button class='btn btn-default' id='button'>" +this.searchTerms[i]+ "</button>")
 			}
 		},
 		buttonGen2: function() {
-			$('#buttonsBackup').append("<div class=\"btn-group\" role=\"group\"><button class='btn btn-default' id='button2'>" + $('#newSearch').val() + "</button></div>")
+			$('#buttons').append("<button class='btn btn-default' id='button2'>" + $('#newSearch').val() + "</button>")
 		},
 		clearGif: function() {
 			$('#giphy').html(" ")
@@ -35,7 +34,7 @@
 		      console.log(response);
 		      giphyApp.clearGif();
 		      for (var i=0; i<response.data.length;i++){
-		      	$("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'>");
+		      	$("#giphy").prepend("<div><p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'></div>");
 		      }
 		      // $("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'>");
 		    });
@@ -52,17 +51,11 @@
 		giphyApp.buttonGen2();
 	})
 
-	//can't figure out why this doesn't work...  It functions how its mean to, takes all values in the id. but when I move it to the children it breaks...  I'm kind of at a loss
-	$('#buttonsBackup').on('click', function(){
-		console.log($(this).text())
-		giphyApp.apiCall($(this).text());
-	})
-
-	$("button").on('click', function(){
-		console.log($("button"))
-		giphyApp.apiCall($(this).text());
-	})
-
+	document.getElementById('newSearch').onkeydown = function(event) {
+	    if (event.keyCode == 13) {
+	        giphyApp.buttonGen2();
+	    }
+	}
 
   	document.body.addEventListener( 'click', function ( event ) {
   		$(".gif").on("click", function() {
@@ -77,44 +70,12 @@
 		        $(this).attr("data-state", "still");
 		    }
 	  	});
+
+		$("button").on('click', function(){
+			console.log($("button"))
+			giphyApp.apiCall($(this).text());
+		})
   	} );
-
-		// if( event.srcElement.id == 'gif') {
-		// 	console.log($(this).attr("data-state"));
-		// 	var state = $(this).attr("data-state");
-		// 	if (state === "still") {
-		//         $(this).attr("src", $(this).attr("data-animate"));
-
-		//         $(this).attr("data-state", "animate");
-		//     } else {
-		//         $(this).attr("src", $(this).attr("data-still"));
-		//         $(this).attr("data-state", "still");
-		//     }
-		// 	};
-
-	// $(".gif").on("click", function() {
- //      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
- //      var state = $(this).attr("data-state");
- //      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
- //      // Then, set the image's data-state to animate
- //      // Else set src to the data-still value
- //      if (state === "still") {
- //        $(this).attr("src", $(this).attr("data-animate"));
- //        $(this).attr("data-state", "animate");
- //      } else {
- //        $(this).attr("src", $(this).attr("data-still"));
- //        $(this).attr("data-state", "still");
- //      }
- //    });
-	    // This is for the homework to make the onclick gif work
-	    // if (state === "still") {
-	    // 	$(this).attr("src", animate)
-	    // 	$(this).attr("src", "animate")
-	    // }
-	    // else {
-	    // 	$(this).attr("src", $(this).attr("data-still"))
-	    // 	$(this).attr("src", "still")	    	
-	    // }		
 	</script>
 </body>
 </html>
