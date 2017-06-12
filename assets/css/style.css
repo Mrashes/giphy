@@ -1,9 +1,19 @@
-.btn {
-
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+.flexEnd {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
 }
 
-.ratingGif {
+.btn {
+	
+}
 
+.inputSearch {
+	flex: flex-end;
 }
 
 .search {
@@ -14,6 +24,6 @@
 
 }
 
-.container {
-	display: inline-flex;
+.ratingGif {
+	padding: 10px;
 }
