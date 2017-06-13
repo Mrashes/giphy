@@ -15,13 +15,13 @@ var giphyApp = {
 
 	apiCall: function(query) {
 		$.ajax({
-	      url: "http://api.giphy.com/v1/gifs/search?q="+query+"&limit=10&api_key=dc6zaTOxFJmzC",
+	      url: "https://api.giphy.com/v1/gifs/search?q="+query+"&limit=10&api_key=dc6zaTOxFJmzC",
 	      method: 'GET'
 	    }).done(function(response) {
 	      // console.log(response);
 	      giphyApp.clearGif();
 	      for (var i=0; i<response.data.length;i++){
-	      	$("#giphy").prepend("<div class='ratingGif'><p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' id='gif'></div>");
+	      	$("#giphy").prepend("<div class='ratingGif'><img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' id='gif'><p class='textCenter'>Rating: " + response.data[i].rating+"</p> </div>");
 	      }
 	      // $("#giphy").prepend("<p>Rating: " + response.data[i].rating+"</p> <img src='"+response.data[i].images.fixed_height_still.url+"' data-still='"+response.data[i].images.fixed_height_still.url+"' data-animate='"+response.data[i].images.fixed_height.url+"' data-state='still' class='gif'>");
 	    });
