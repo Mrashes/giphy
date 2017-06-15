@@ -1,5 +1,5 @@
 var giphyApp = {
-	searchTerms: ['Beyonce', 'Nickelodeon', 'Dog', 'Bangz', 'England', 'Wood', 'Video Games'],
+	searchTerms: ['Beyonce', 'Nickelodeon', 'Disney', 'Cartoon Network', 'CBS', 'NBC', 'Television'],
 	buttonGen: function() {
 		$('#buttons').html(' ');
 		for (var i = 0; i<this.searchTerms.length; i++){
